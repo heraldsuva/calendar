@@ -32,8 +32,19 @@ $actions = array(
     'event_edit' => array(
         'object' => 'Calendar',
         'method' => 'processForm',
-        'header' => 'Location: ../../')
-    );
+        'header' => 'Location: ../../' 
+    ),
+    'user_login' => array(
+        'object' => 'Admin',
+        'method' => 'processLoginForm',
+        'header' => 'Location: ../../'
+    ),
+    'user_logout' => array(
+        'object' => 'Admin',
+        'method' => 'processLogout',
+        'header' => 'Location: ../../'
+    )
+);
  
 /*
 * Need a PDO object.

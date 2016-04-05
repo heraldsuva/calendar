@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `calendar_db` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `calendar_db`;
--- MySQL dump 10.13  Distrib 5.6.28, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.13  Distrib 5.5.46, for debian-linux-gnu (x86_64)
 --
--- Host: localhost    Database: calendar_db
+-- Host: 127.0.0.1    Database: calendar_db
 -- ------------------------------------------------------
--- Server version	5.6.28-0ubuntu0.15.10.1
+-- Server version	5.5.46-0ubuntu0.14.04.2
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -36,14 +36,20 @@ CREATE TABLE `events` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `events`
+-- Table structure for table `users`
 --
 
-LOCK TABLES `events` WRITE;
-/*!40000 ALTER TABLE `events` DISABLE KEYS */;
-INSERT INTO `events` VALUES (1,'New Year&#039;s Day','Happy New Year!','2015-12-31 16:00:00','2016-01-01 15:59:59'),(2,'Last Day of January','Last day of the month! Yay!','2016-01-30 16:00:00','2016-01-31 15:59:59'),(3,'Dinner Party','Five-course meal with wine pairings at John&rsquo;s house','2016-01-22 09:00:00','2016-01-22 11:00:00');
-/*!40000 ALTER TABLE `events` ENABLE KEYS */;
-UNLOCK TABLES;
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(80) DEFAULT NULL,
+  `user_pass` varchar(47) DEFAULT NULL,
+  `user_email` varchar(80) DEFAULT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -54,4 +60,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-04-04 23:52:02
+-- Dump completed on 2016-04-05 16:47:24

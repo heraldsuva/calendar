@@ -16,7 +16,7 @@
     * Set up the page title and CSS files
     */
     $page_title = "Events Calendar";
-    $css_files = array('style.css');
+    $css_files = array('style.css', 'admin.css', 'ajax.css');
 
     include_once 'assets/common/header.inc.php';
 
