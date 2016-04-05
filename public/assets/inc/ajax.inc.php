@@ -29,10 +29,26 @@ foreach ( $C as $name => $val ){
 * Create a lookup array for form actions
 */
 $actions = array(
-	'event_view' => array(
-		'object' => 'Calendar',
-		'method' => 'displayEvent'
-	)
+    'event_view' => array(
+        'object' => 'Calendar',
+        'method' => 'displayEvent'
+    ),
+    'edit_event' => array(
+        'object' => 'Calendar',
+        'method' => 'displayForm'
+    ),
+    'event_edit' => array(
+        'object' => 'Calendar',
+        'method' => 'processForm'
+    ),
+    'delete_event' => array(
+        'object' => 'Calendar',
+        'method' => 'confirmDelete'
+    ),
+    'confirm_delete' => array(
+        'object' => 'Calendar',
+        'method' => 'confirmDelete'
+    )
 );
 
 /*

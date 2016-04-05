@@ -241,6 +241,7 @@ class Calendar extends DB_Connect
         * weekday abbreviations to label the calendar columns
         */
         $cal_month = date('F Y', strtotime($this->_useDate));
+        $cal_id = date('Y-m', strtotime($this->_useDate));
         
         $weekdays = array('Sun', 'Mon', 'Tue','Wed', 'Thu', 'Fri', 'Sat');
         
@@ -248,7 +249,7 @@ class Calendar extends DB_Connect
         * Add a header to the calendar markup
         */
         
-        $html = "\n\t<h2>$cal_month</h2>";
+        $html = "\n\t<h2 id=\"month-$cal_id\">$cal_month</h2>";
         
         $labels = NULL;
         
@@ -282,7 +283,7 @@ class Calendar extends DB_Connect
             * Apply a "fill" class to the boxes occurring before
             * the first of the month
             */
-            $class = $i<=$this->_startDay ? "fill" : NULL;
+            $class = $i<=$this->_startDay ? " class=\"fill\"" : NULL;
             /*
             * Add a "today" class if the current date matches
             * the current date
@@ -294,7 +295,7 @@ class Calendar extends DB_Connect
             /*
             * Build the opening and closing list item tags
             */
-            $ls = sprintf("\n\t\t<li class=\"%s\">", $class);
+            $ls = sprintf("\n\t\t<li%s>", $class);
             $le = "\n\t\t</li>";
             
             /*
@@ -487,6 +488,14 @@ class Calendar extends DB_Connect
         $desc = htmlentities($_POST['event_description'], ENT_QUOTES);
         $start = htmlentities($_POST['event_start'], ENT_QUOTES);
         $end = htmlentities($_POST['event_end'], ENT_QUOTES);
+        
+        /*
+        * If the start or end dates aren't in a valid format, exit the script with an error
+        */
+        if ( !$this->_validDate($start) || !$this->_validDate($end) ){
+            return "Invalid date format! Use YYYY-MM-DD HH:MM:SS";
+        }
+
         /*
         * If no event ID passed, create a new event
         */
@@ -518,7 +527,11 @@ class Calendar extends DB_Connect
             $stmt->bindParam(":end", $end, PDO::PARAM_STR);
             $stmt->execute();
             $stmt->closeCursor();
-            return TRUE;
+            
+            /*
+            * Returns the ID of the event
+            */
+            return $this->db->lastInsertId();
         }
         catch ( Exception $e )
         {
@@ -667,6 +680,24 @@ class Calendar extends DB_Connect
                         <input type="hidden" name="token" value="' . $_SESSION['token'] . '" />
                     </p>
                 </form>';        
+    }
+    /**
+    * Validates a date string
+    *
+    * @param string $date the date string to validate
+    * @return bool TRUE on success, FALSE on failure
+    */
+    private function _validDate($date)
+    {
+        /*
+        * Define a regex pattern to check the date format
+        */
+        $pattern = '/^(\d{4}(-\d{2}){2} (\d{2})(:\d{2}){2})$/';
+
+        /*
+        * If a match is found, return TRUE. FALSE otherwise.
+        */
+        return preg_match($pattern, $date)==1 ? TRUE : FALSE;
     }
 }
 
